@@ -8,7 +8,7 @@ import java.net.Socket;
 
 public class Main {
 
-  public static final int DEFAULT_PORT = 80;
+  private static final int DEFAULT_PORT = 80;
 
   public static void main(String[] args) {
     try (ServerSocket serverSocket = new ServerSocket(DEFAULT_PORT)) {
