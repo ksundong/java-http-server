@@ -33,13 +33,15 @@ public class Main {
     BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
 
     StringBuilder requestBuilder = new StringBuilder();
-    String line;
-
-    while (!(line = br.readLine()).isBlank()) {
+    String line = br.readLine();
+    while (line != null && !line.isBlank()) {
       requestBuilder.append(line).append("\r\n");
+      line = br.readLine();
     }
 
-    parseRequest(requestBuilder.toString());
+    if (requestBuilder.length() > 0) {
+      parseRequest(requestBuilder.toString());
+    }
   }
 
   private static void parseRequest(String request) {
