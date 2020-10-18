@@ -3,6 +3,7 @@ package dev.idion.httpserver;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -21,6 +22,13 @@ public class Main {
       while (true) {
         try (Socket client = serverSocket.accept()) {
           handleClient(client);
+          OutputStream clientOutput = client.getOutputStream();
+          clientOutput.write("HTTP/1.1 200 OK\r\n".getBytes());
+          clientOutput.write("ContentType: text/html\r\n".getBytes());
+          clientOutput.write("\r\n".getBytes());
+          clientOutput.write("<b>It works!</b>\r\n".getBytes());
+          clientOutput.write("\r\n\r\n".getBytes());
+          clientOutput.flush();
         }
       }
     } catch (IOException e) {
